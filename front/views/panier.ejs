@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href='<%=links.css+"panier.css"%>'>
+		<title>Compte</title>
+	</head>
+	<body>
+		<header>
+
+			<a href="/accueil"><button>Retour</button> </a>
+			<figure>
+				<img onmouseover="showMenu()" src='<%=links.images+"contact.png"%>' alt="..." />
+			</figure>
+
+			<nav id="menu" onmouseover="showMenu()" onmouseout="hideMenu()">
+				<ul>
+					<a href="/compte/panier"><li>Mon panier</li> </a>
+					<a href="/compte/infos"><li>Mes infos</li> </a>
+					<a href="/deconnexion"><li>Deconneion</li> </a>
+				</ul>
+			</nav>
+		</header>
+		<section>
+
+			<% let price = 0; %>
+			<% for(id in params.panier.items){%>
+			<div class="item">
+				<figure>
+					<img src='<%=links.images+"items/"+params.panier.items[id].image%>' alt="..." />
+				</figure>
+
+				<h4 class="nom"><%= params.panier.items[id].name %></h4>
+				<h4 class="quantite">Quantité:<%= params.panier.quantities[id] %></h4>
+				<h4 class="price"> <%= params.panier.items[id].price * params.panier.quantities[id] %>$</h4>
+
+				<% price += params.panier.items[id].price * params.panier.quantities[id]; %>
+
+				<a href="<%= '/compte/panier/delall/'+id %>" ><button>Tous rétirer</button></a> <a href="<%= '/compte/panier/del/'+id %>" ><button>Rétirer un</button></a>  
+			</div>
+			<%}%>
+
+		</section>
+
+		<%if( (price != 0) ){%>
+		<section id="bottom">
+			<p>Côut total: <%= price %>$</p>
+			 <p> <a href="/compte/commande/make"><button>Commander</button></a> <a href="/compte/commande/cancel"><button>Annuler</button></a> </p>
+		</section>
+		<%}else{%>
+			<p>Votre panier est vide, veuillez y ajouter des articles!</p>
+		<%}%>
+	
+		<%if( params.command ){%>
+			<script src="/socket.io/socket.io.js"></script>
+
+			
+			<script>
+
+				var socket = io();
+
+				const commander = (id, code)=>{
+
+					socket.emit("new commande", id, code);
+
+				}
+
+				commander(<%= params.commandinfos.id %>, "<%= params.commandinfos.code %>");
+
+			</script>
+		<%}%>
+
+		<script type="text/javascript">
+			
+			const showMenu = ()=>{
+				document.getElementById("menu").style.visibility = "visible";
+			};
+
+			const hideMenu = ()=>{
+				document.getElementById("menu").style.visibility = "hidden";
+			};
+
+		</script>
+
+	</body>
+</html>

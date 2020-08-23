@@ -1,0 +1,1 @@
+let general = document.getElementById("general");

@@ -1,0 +1,133 @@
+#container
+{
+	background-color: white;
+}
+section
+{
+	display: inline-block;
+	width: 33%;
+	text-align: center;
+	vertical-align: top;
+	position: relative;
+}
+
+h1, div
+{
+	background-color: #DCDCDC;
+}
+
+section div
+{
+	width: 50%;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+#ready img
+{
+	width: 30px;
+	height: 30px;
+	border-radius: 15px;
+	position: absolute;
+	right: 3%;
+	top:20px;
+}
+
+#menu
+{
+	background-color: white;
+	width: 150px;
+	box-shadow: 2px 3px black;
+	visibility: hidden;
+	position: absolute;
+	right: 1%;
+	top:50px;
+	
+}
+
+#menu a
+{
+	text-decoration: none;
+}
+
+#menu li
+{
+	list-style: none;
+}
+
+.button
+{
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	display: inline-block;
+	text-align: left;
+	background-color: green;
+	position: absolute;
+	top: 20px;
+	left: 10px;
+}
+
+.wait
+{
+	background-color: #FFA500;
+}
+
+.wait h1
+{
+	color: #FFA500;
+}
+
+.wait button
+{
+	width: 45%;
+
+}
+
+.end
+{
+	background-color: red;
+}
+
+.make
+{
+	background-color: #FF4500;
+}
+
+button[class="make"]:active
+{
+	background-color: #FF8C00;
+}
+
+.make h1
+{
+	color: #FF4500;
+}
+
+.ready
+{
+	background-color: #00FF00;
+}
+
+button[class="ready"]:active
+{
+	background-color: #00EE00;
+}
+
+.ready h1
+{
+	color: #00FF00;
+}
+
+button[class="end"]:active
+{
+	background-color: #CD0000;
+}
+
+button
+{
+	margin-bottom: 8px;
+	width: 49%;
+	color: #DCDCDC;
+	font-size: 20px;
+}

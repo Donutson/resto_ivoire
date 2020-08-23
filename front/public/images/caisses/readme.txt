@@ -1,0 +1,1 @@
+stockage des images du personnel de caisse

@@ -1,0 +1,71 @@
+<%params.cashiers.forEach((cashier)=>{%>
+<div class="caisse">
+	<figure>
+		<img src='<%=links.images+"caisses/"+cashier.photo%>' alt='<%= cashier.photo%>'/>
+	</figure>
+
+	<p><%= cashier.name+" "+cashier.lastname%></p>
+	<p><%= cashier.phone%></p>
+	<p><%= cashier.email%></p>
+
+	<form method="POST" action="/admin/caisse/delete">
+		
+		<div class="form-line">
+			<input type="phone" class="caisse-phone"  name="phone" value="<%= cashier.phone%>" required>
+		</div>
+
+		<p>
+			<button type="submit" class="delete">Retirer</button>
+		</p>
+
+	</form>
+
+</div>
+<%})%>
+
+<div class="caisse">
+	<div id="cadre" onclick="setImage()">
+		<div class="plus-sign">
+			<div class="vertical-bar"></div>
+			<div class="horizontal-bar"></div>
+		</div>
+		<span><%=params.imageerror%></span>
+	</div>
+
+	<form method="POST" action="/admin/caisse/create" enctype="multipart/form-data">
+
+		<div class="form-line">
+			<input type="file" id="champ-image" name="image" value="<%if(locals.params && locals.params.user){%><%=params.user.photo || '' %><%}%>" required>
+		</div>
+
+		<div class="form-line">
+			<label>Nom</label>
+			<input type="text" name="nom" value="<%if(locals.params && locals.params.user){%><%=params.user.name || ''%><%}%>" required>
+		</div>
+
+		<div class="form-line">
+			<label>Prenom</label>
+			<input type="text" name="prenom" value="<%if(locals.params && locals.params.user){%><%=params.user.lastname || ''%><%}%>" required>
+		</div>
+
+		<div class="form-line">
+			<label>Email</label>
+			<input type="email" name="mail" value="<%if(locals.params && locals.params.user){%><%=params.user.email || ''%><%}%>" required>
+		</div>
+
+		<div class="form-line">
+			<label>Téléphone</label>
+			<input type="phone" name="phone" value="<%if(locals.params && locals.params.user){%><%=params.user.phone || ''%><%}%>" required>
+			<p><%if(locals.params && locals.params.user){%><%=params.phoneerror || ''%><%}%></p>
+		</div>
+
+		<div class="form-line">
+			<label>Mot de passe</label>
+			<input type="password" name="password" required>
+		</div>
+
+		<input type="submit" value="Nouveau caissier">
+
+	</form>
+</div>
+

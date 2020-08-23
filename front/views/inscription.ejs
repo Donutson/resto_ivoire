@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href='<%=links.css+"inscription.css"%>'>
+		<title>Inscription</title>
+	</head>
+
+	<body>
+
+		<section>
+			
+			<form method="POST" action="/compte/inscription" enctype="multipart/form-data">
+
+			<div class="form-line">
+				<label>Photo de profil</label>
+				<input type="file" name="image" class="right" value="<%if(locals.params && locals.params.user){%><%=params.user.photo || '' %><%}%>" required>
+				<p><%if(locals.params){%><%=params.imageerror || ''%><%}%></p>
+			</div>
+
+			<div class="form-line">
+				<label>Nom</label>
+				<input type="text" name="nom" class="right" value="<%if(locals.params && locals.params.user){%><%=params.user.name || ''%><%}%>" required>
+			</div>
+
+			<div class="form-line">
+				<label>Prenom</label>
+				<input type="text" name="prenom" class="right" value="<%if(locals.params && locals.params.user){%><%=params.user.lastname || ''%><%}%>" required>
+			</div>
+
+			<div class="form-line">
+				<label>Email</label>
+				<input type="email" name="mail" class="right" value="<%if(locals.params && locals.params.user){%><%=params.user.email || ''%><%}%>" required>
+			</div>
+
+			<div class="form-line">
+				<label>Téléphone</label>
+				<input type="phone" name="phone" class="right" value="<%if(locals.params && locals.params.user){%><%=params.user.phone || ''%><%}%>" required>
+				<span><%if(locals.params && locals.params.user){%><%=params.phoneerror || ''%><%}%></span>
+			</div>
+
+			<div class="form-line">
+				<label>Mot de passe</label>
+				<input type="password" class="right" name="password" required>
+			</div>
+
+			<div id="submit">
+				
+				<input type="submit" value="S'inscrire">
+
+			</div>
+			
+
+		</form>
+
+		</section>
+
+		
+	</body>
+</html>

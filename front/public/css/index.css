@@ -1,0 +1,218 @@
+header
+{
+	background-image: url("../../images/cover.jpg");
+	background-size: 100% 200px;
+	height: 200px;
+}
+
+.plus-sign
+{
+	max-width: 50px;
+	max-height: 50px;
+	height: 100%;
+	margin: auto;
+	position: relative;
+	top: 75px;
+	background-color: #CDB5CD;
+	border-radius: 25px;
+}
+
+.plus-sign:hover
+{
+	background-color: grey;
+}
+
+.vertical-bar
+{
+	height: 25px;
+	width: 10px;
+	margin: auto;
+	position: relative;
+	top: 12.5px;
+	background-color: #525252;
+}
+
+.horizontal-bar
+{
+	height: 10px;
+	width: 25px;
+	position: relative;
+	top: -5px;
+	background-color: #525252;
+	margin: auto;
+}
+
+header img
+{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	position: absolute;
+	right: 3%;
+	top:20px;
+}
+
+#menu
+{
+	background-color: white;
+	width: 150px;
+	position: absolute;
+	right: 1%;
+	top:50px;
+	
+}
+
+#menu a
+{
+	text-decoration: none;
+}
+
+#menu li
+{
+	list-style: none;
+}
+
+header button
+{
+	height: 50px;
+	width: 100px;
+	font-size: 20px;
+}
+
+#connexion
+{
+	position: absolute;
+	right: 3%;
+	top:100px;
+	padding: 10px;
+}
+
+#cover
+{
+	margin: auto;
+	display: block;
+	width: 100px;
+	position: relative;
+	top: 75px;
+}
+
+#cover input[type="submit"]
+{
+	width: 110px;
+}
+
+input[type="submit"]
+{
+	width: 80px;
+	height: 30px;
+	display: block;
+	margin: auto;
+}
+
+.form-line
+{
+	margin: 4px;
+}
+
+section
+{
+	display: inline-block;
+	vertical-align: top;
+}
+
+#categories
+{
+	width: 13%;
+	height: 100%;
+	padding: 2%;
+}
+
+#categories a
+{
+	text-decoration: none;
+}
+
+#categories h4
+{
+	width: 100%;
+	height: 25px;
+	text-align: center;
+	
+}
+
+#category-active
+{
+		font-size: 22px;
+}
+
+#items
+{
+	width: 80%;
+	height: 100%;
+}
+
+.item
+{
+	position: relative;
+	text-align: center;
+	width: 30%;
+	height: 100%;
+	min-width: 300px;
+	padding-bottom: 8px;
+	margin: 1%;
+	display: inline-block;
+}
+
+.item:hover
+{
+	 box-shadow: 3px 2px 4px black;
+}
+
+.item img, #cadre
+{
+	width: 200px;
+	height: 200px;
+}
+
+#cadre
+{
+	width: 200px;
+	height: 194px;
+	margin: auto;
+	background-color: white;
+	margin-top: 8px;
+}
+
+#items button
+{
+	width: 100%;
+	margin: 0px;
+	height: 40px;
+
+}
+
+.champ-image, input[name="categoryid"], input[name="id"], input[value="Supprimer"], .item-form, header input[name="typeuser"], #menu
+{
+	display: none;
+}
+
+.red-point
+{
+	width: 20px;
+	height: 20px;
+	background-color: #F08080;
+	border-radius: 10px 10px;
+	position: absolute;
+	right: 4px;
+	top: 5px;
+}
+
+.red-point:hover
+{
+	background-color: red;
+}
+
+.red-point:active
+{
+	background-color: #FF6347;
+}

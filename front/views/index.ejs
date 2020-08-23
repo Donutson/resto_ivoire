@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href='<%=links.css+"/index.css"%>'>
+		<title>Resto Ivoire</title>
+
+		<style type="text/css">
+
+			#categories
+			{
+				background-color: <%= params.parameters.colorCategoryBox%>;
+			}
+			#categories h4
+			{
+				color: <%= params.parameters.colorCategoryText%>;
+				background-color: <%= params.parameters.colorCategory%>;
+			}
+			#categories h4:hover
+			{
+				background-color: <%= params.parameters.colorCategoryBox%>;
+			}
+
+			.item
+			{
+				background-color: <%= params.parameters.colorItem%>;
+			}
+
+		</style>
+	</head>
+	<body>
+		<header>
+			<%if(params.editable){%>
+
+				<div class="plus-sign" onclick="setImage1()">
+					<div class="vertical-bar"></div>
+					<div class="horizontal-bar"></div>
+				</div>
+			
+
+			<form id="cover" method="POST" action="/admin/cover" enctype="multipart/form-data">
+				<div class="form-line">
+					<input type="file" class="champ-image" name="image" required>
+				</div>
+
+
+				<div class="form-line">
+					<input type="number" name="categoryid" value="<%= params.id%>"/>
+				</div>
+
+				<input type="submit" value="Changer l'image">
+			</form>
+			<%}%>
+
+			<!-- Formulaire de connexion à son compte -->
+			<%if(!params.isConnected){%>
+			<form id="connexion" method="POST" action="/connexion">
+				<div class="form-line">
+					<label for="phone">Téléphone</label>
+					<input type="phone" name="phone" id="phone" />
+				</div>
+
+				<div class="form-line">
+					<label for="pass">Mot de passe</label>
+					<input type="password" name="pass" id="pass" />
+				</div>				
+
+				<input type="submit" value="Connexion"> 
+				<input type="texte" name="typeuser" value="client" id="type_user">
+			</form>
+			<a href="/compte/inscription"><button>S'inscrire</button> </a>
+			<%}else{%>
+
+			<!-- Bouton compte -->
+			<figure>
+				<img onmouseover="showMenu()" src='<%=links.images+params.photo%>' alt="..." />
+			</figure>
+
+			<nav id="menu" onmouseover="showMenu()" onmouseout="hideMenu()">
+				<ul>
+					<%if(params.isVisible){%>
+						<a href="/compte/panier"><li>Mon panier</li> </a>
+					<%}%>
+					<a href="/compte/infos"><li>Mes infos</li> </a>
+					<a href="/deconnexion"><li>Deconneion</li> </a>
+				</ul>
+			</nav>
+			<%}%>
+
+		</header>
+
+		<!-- Wrapper -->
+		<div>
+			<!-- Categories -->
+			<section id="categories">
+				<h2>Category</h2>
+
+				<%params.categories.forEach((category)=>{%>
+					<a href='<%= "/accueil/"+category.id %>'>  <h4 <%if(category.id == params.id){%> id="category-active"<%}%>><%= category.name%></h4></a> 
+				<%})%>
+
+				<%if(params.editable){%>
+					<div id="parameters">
+						<form method="POST" action="/admin/parameters">
+							<div class="form-line">
+								<label>Category box: </label>
+								<input onchange="changeColor('category_box')" type="color" name="category_box" value="<%= params.parameters.colorCategoryBox%>" />
+							</div>
+							<div class="form-line">
+								<label>Category bouton: </label>
+								<input onchange="changeColor('category_button')" type="color" name="category_button" value="<%= params.parameters.colorCategory%>" />
+							</div>
+							<div class="form-line">
+								<label>Category texte: </label>
+								<input onchange="changeColor('category_text')" type="color" name="category_text" value="<%= params.parameters.colorCategoryText%>" />
+							</div>
+							<div class="form-line">
+								<label>Article box: </label>
+								<input onchange="changeColor('item_box')" type="color" name="item_box" value="<%= params.parameters.colorItem%>" />
+							</div>
+							<div class="form-line">
+								<label>Unité de prix: </label>
+								<input onchange="changeUnit()" type="texte" name="price_unit" value="<%= params.parameters.priceUnit%>" />
+							</div>
+							<input type="submit" value="Update">
+						</form>
+					</div>
+				<%}%>
+
+			</section>
+
+			<!-- Produits du resto -->
+			<section id="items">
+				<%params.items.forEach((item)=>{%>
+				<div class="item">
+					<%if(params.editable){%>
+						<div class="red-point" onclick= deleteItem("<%= 'item-'+item.id%>")>
+							
+						</div>
+					<%}%>
+
+					<figure>
+						<img src='<%=links.images+"items/"+item.image%>' alt="<%item.image%>"/>
+					</figure>
+					
+					<%if(params.editable){%>
+
+						<form method="POST" action="/admin/item/update">
+
+							<div class="form-line">
+								<label>Nom: </label>
+								<input type="texte" name="name" value="<%= item.name %>"/>
+							</div>
+
+							<div class="form-line">
+								<label>Prix: </label>
+								<input type="number" name="price" value="<%= item.price %>"/>
+								<span class="price-unit"><%= params.parameters.priceUnit%></span>
+							</div>
+
+							<div class="form-line">
+								<input type="number" name="id" value="<%= item.id %>"/>
+							</div>
+
+							<div class="form-line">
+								<label>Categorie: </label>
+								<input type="texte" name="category" value="<%= params.categoryname %>"/>
+							</div>
+
+							<div class="form-line">
+								<input type="number" name="categoryid" value="<%= params.id %>"/>
+							</div>
+
+							<input type="submit" value="Update">
+
+						</form>
+
+						<form method="POST" action="/admin/item/delete">
+
+							<div class="form-line">
+								<input type="number" name="id" value="<%= item.id %>"/>
+							</div>
+
+							<div class="form-line">
+								<input type="number" name="categoryid" value="<%= params.id %>"/>
+							</div>
+
+							<input id="<%= 'item-'+item.id%>" type="submit" value="Supprimer">
+
+						</form>
+					<%}else{%>
+
+						<h4 class="nom"><%= item.name%></h4>
+						<h4 class="price"><%= item.price%> <%= params.parameters.priceUnit%></h4>
+
+						<%if(params.isConnected){%>
+							<a href="<%= '/compte/panier/add/'+params.id+'/'+item.id %>"><button>Ajouter au panier</button></a>
+						<%}%>
+					<%}%>
+				</div>
+				<%})%>
+
+				<%if(params.editable){%>
+				<div class="item">
+					<div id="cadre" onclick="setImage2()">
+						<div class="plus-sign">
+							<div class="vertical-bar"></div>
+							<div class="horizontal-bar"></div>
+						</div>
+					</div>
+
+					<form method="POST" action="/admin/item" enctype="multipart/form-data">
+
+						<div class="form-line">
+							<input type="file" class="champ-image" name="image" required>
+						</div>
+
+						<div class="form-line">
+							<label>Nom</label>
+							<input type="text" name="nom" required>
+						</div>
+
+						<div class="form-line">
+							<label>Price</label>
+							<input type="number" name="price" required>
+							<span class="price-unit"><%= params.parameters.priceUnit%></span>
+						</div>
+
+						<div class="form-line">
+							<label>Categorie</label>
+			
+								<input type="texte" value="<%= params.categoryname %>" disabled>
+								
+							<input type="number" name="categoryid" value="<%= params.id %>">
+						</div>
+							
+						<input type="submit" value="Créer">
+						<%= params.errormessage%>
+					</form>
+					
+				</div>
+				<%}%>
+			</section>
+		</div>
+		
+		<script type="text/javascript">
+
+			const setImage1 = ()=>{
+				document.getElementsByClassName("champ-image")[0].click();
+			};
+
+			const setImage2 = ()=>{
+				document.getElementsByClassName("champ-image")[1].click();
+			};
+
+			const deleteItem = (id)=>{
+				document.getElementById(id).click();
+			};
+
+			const showMenu = ()=>{
+				document.getElementById("menu").style.display = "block";
+			};
+
+			const hideMenu = ()=>{
+				document.getElementById("menu").style.display = "none";
+			};
+
+			const changeColor = (zone)=>{
+
+				let color;
+
+				switch(zone){
+					case "category_box":
+						color = document.querySelectorAll("#parameters input")[0].value;
+						document.querySelector("#categories").style.backgroundColor = color;
+						break;
+
+					case "category_button":
+						color = document.querySelectorAll("#parameters input")[1].value;
+						document.querySelectorAll("#categories h4").forEach((category)=>{
+							category.style.backgroundColor = color;
+						});
+						break;
+
+					case "category_text":
+						color = document.querySelectorAll("#parameters input")[2].value;
+						document.querySelectorAll("#categories h4").forEach((category)=>{
+							category.style.color = color;
+						});
+						break;
+
+					case "item_box":
+						color = document.querySelectorAll("#parameters input")[3].value;
+						document.querySelectorAll(".item").forEach((item)=>{
+							item.style.backgroundColor = color;
+						});
+						break;
+				}
+			};
+
+			const changeUnit = ()=>{
+				unit = document.querySelectorAll("#parameters input")[4].value;
+				document.querySelectorAll(".price-unit").forEach((price)=>{
+					price.textContent = unit;
+				});
+			}
+
+		</script>
+
+	</body>
+</html>

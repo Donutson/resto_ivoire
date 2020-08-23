@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+			<link rel="stylesheet" type="text/css" href='<%=links.css+"caisse.css"%>'>
+		<title>caisse</title>
+	</head>
+	<body>
+		<div id="container">
+			<section id="wait" class="wait">
+
+				<!-- bouton pour activer/désactiver la réception en temps réelle pour cette partie -->
+				<a href="/caisse/changestat/wait">
+					<div class="button">
+						
+					</div>
+				</a>
+
+				<h1>En attente</h1>
+
+				<%params.commande.wait.forEach((commande)=>{%>
+					<div id="<%= commande.id%>">
+						<p><%= commande.codeCommande%></p>
+						<a href='<%="/caisse/take/"+commande.id %>' onclick="prendre(<%= commande.id%>, '<%= commande.codeCommande%>')"><button class="make">Prendre</button></a> <a href='<%="/caisse/cancel/"+commande.id %>'><button class="end" onclick="takeOff(<%= commande.id%>)">Réfusé</button></a>  
+					</div>
+				<%})%>
+
+			</section>
+
+			<section id="make" class="make">
+
+				<!-- bouton pour activer/désactiver la réception en temps réelle pour cette partie -->
+				<a href="/caisse/changestat/take">
+					<div class="button">
+						
+					</div>
+				</a>
+
+				<h1>En cours</h1>
+
+				<%params.commande.take.forEach((commande)=>{%>
+					<div id="<%= commande.id%>">
+						<p><%= commande.codeCommande%></p>
+						<a href='<%="/caisse/ready/"+commande.id %>' onclick="achieve(<%= commande.id%>, '<%= commande.codeCommande%>')"><button class="ready">Prête</button></a> <a href='<%="/caisse/see/"+commande.id %>'><button class="end">Voir</button></a> 
+					</div>
+				<%})%>
+
+			</section>
+
+			<section id="ready" class="ready">
+
+				<!-- bouton pour activer/désactiver la réception en temps réelle pour cette partie -->
+				<a href="/caisse/changestat/ready">
+					<div class="button">
+						
+					</div>
+				</a>
+
+					<!-- Bouton compte -->
+				<figure onmouseover="showMenu()" >
+					<img src='<%=links.images+params.photo%>' alt="..." />
+				</figure>
+
+				<nav id="menu" onmouseover="showMenu()" onmouseout="hideMenu()">
+					<ul>
+						<a href="/compte/infos"><li>Mes infos</li> </a>
+						<a href="/deconnexion"><li>Deconneion</li> </a>
+					</ul>
+				</nav>
+
+				<h1>Prête</h1>
+
+				<%params.commande.ready.forEach((commande)=>{%>
+					<div id="<%= commande.id%>">
+						<p><%= commande.codeCommande%></p>
+						<a href='<%="/caisse/send/"+commande.id %>'><button class="end" onclick="takeOff(<%= commande.id%>)">Livrer</button></a> <a href='<%="/caisse/see/"+commande.id %>'><button class="end">Voir</button></a> 
+					</div>
+				<%})%>
+
+			</section>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+
+		<script>
+
+			const showMenu = ()=>{
+				document.getElementById("menu").style.visibility = "visible";
+			};
+
+			const hideMenu = ()=>{
+				document.getElementById("menu").style.visibility = "hidden";
+			};
+			
+			const socket = io();
+
+			const hideCommande = (id, code)=>{
+
+				const toHide = document.getElementById(id);
+				if(toHide != undefined){
+
+					toHide.id="";
+					toHide.style.display = "none";
+
+				}
+
+			}
+
+			socket.on("commande take", hideCommande);
+
+			socket.on("commande achieve", hideCommande);
+
+			const prendre = (id, code)=>{
+
+				socket.emit("commande take", id, code);
+
+			}
+
+			const achieve = (id, code)=>{
+
+				socket.emit("commande achieve", id, code);
+
+			}
+
+			const takeOff = (id)=>{
+	
+				socket.emit("commande takeoff", id);
+
+			}
+
+		</script>
+
+		<!-- <script src='<%=links.js+"hide.js"%>'></script> -->
+
+		<% if(params.rtc.wait){%>
+			<script src='<%=links.js+"wait.js"%>'></script>
+		<%}else{%>
+			<script> 
+				document.querySelector("#wait .button").style.backgroundColor = "red";
+			</script>
+		<%}%>
+
+		<% if(params.rtc.take){%>
+			<script src='<%=links.js+"take.js"%>'></script>
+		<%}else{%>
+			<script> 
+				document.querySelector("#make .button").style.backgroundColor = "red";
+			</script>
+		<%}%>
+
+		<% if(params.rtc.ready){%>
+			<script src='<%=links.js+"achieve.js"%>'></script>
+		<%}else{%>
+			<script> 
+				document.querySelector("#ready .button").style.backgroundColor = "red";
+			</script>
+		<%}%>
+
+		<script src='<%=links.js+"end.js"%>'></script>
+
+	</body>
+</html>

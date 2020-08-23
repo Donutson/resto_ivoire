@@ -1,0 +1,32 @@
+<div class="bloc">
+	<h2>Catégories</h2>
+	<section id="categories">
+		<% if(params.categories.length != 0){%>
+			<form method="POST" action="/admin/category/delete">
+			<% params.categories.forEach((category)=>{%>
+				<div>
+					<label><%= category.name%></label>
+					<input type="checkbox" name="<%= category.name%>">
+				</div>
+
+				<%})%>
+				
+				<input type="submit" value="Supprimer">
+			</form>
+		<%}%>
+
+		<form method="POST" action="/admin/category/make">
+			<h4>Nouvelle category</h4>
+			<div>
+				<input type="texte" name="category" placeholder="votre categorie" required>
+				<input type="submit" value="Créer"/>
+			</div>
+		</form>
+	</section>
+</div>
+
+<div  class="bloc">
+	<h2>Accueil</h2>
+	<a href="/accueil"><button>Editer l'accueil</button></a>
+
+</div>

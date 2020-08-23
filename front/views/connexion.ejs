@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href='<%= links.css+"connexion.css" %>'>
+		<title>Connexion</title>
+	</head>
+	<body>
+		<section>
+			
+			<form id="connexion" method="post" action="/connexion">
+
+				<div class="form-line">
+
+					<label for="phone" >Téléphone</label>
+					<input type="texte" name="phone" id="phone" class="right" />
+	
+				</div>
+
+				<div class="form-line">
+
+					<label for="pass">Mot de passe</label>
+					<input type="password" name="pass" id="pass" class="right" />
+					
+				</div>				
+				
+				<div id="submit">
+
+					<input type="submit" value="Connexion">
+					<input type="texte" name="typeuser" value="<%= status %>" id="type_user">
+				
+				</div>
+
+			</form>
+
+		</section>
+			
+	</body>
+</html>

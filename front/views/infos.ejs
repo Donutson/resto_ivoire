@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href='<%=links.css+"infos.css"%>'>
+		<title>Infos</title>
+	</head>
+	<body>
+		<header>
+
+			<!-- Bouton compte -->
+			<figure onmouseover="showMenu()" >
+				<img onmouseover="showMenu()" src='<%=links.images+params.photo%>' alt="..." />
+			</figure>
+
+			<nav id="menu" onmouseover="showMenu()" onmouseout="hideMenu()">
+				<ul>
+					<%if(params.isVisible){%>
+						<a href="/compte/panier"><li>Mon panier</li> </a>
+					<%}%>
+					<a href="/compte/infos"><li>Mes infos</li> </a>
+					<a href="/deconnexion"><li>Deconneion</li> </a>
+				</ul>
+			</nav>
+
+		</header>
+
+		<section id="infos">
+
+			<figure>
+				<img src='<%=links.images+params.photo%>'>
+			</figure>
+
+			<p><%= params.user.name+" "+params.user.lastname%></p>
+			<p><%= params.user.phone%></p>
+			<p><%= params.user.email%></p>
+
+		</section>
+
+		<section id="change-pass">
+			
+			<form method="POST" action="/compte/newpass">
+
+				<h3>Changer votre mot de passe</h3>
+				
+				<div class="form-line">
+					<label>Mot de passe actuel:</label>
+					<input type="password" name="current" required>
+				</div>
+
+				<div class="form-line">
+					<label>Nouveau mot de passe:</label>
+					<input type="password" name="new" required>
+				</div>
+
+				<input type="submit" value="Changer">
+				<span><%=params.message%></span>
+
+			</form>
+		
+		</section>
+		
+			
+
+		<script type="text/javascript">
+
+			const showMenu = ()=>{
+				document.getElementById("menu").style.visibility = "visible";
+			};
+
+			const hideMenu = ()=>{
+				document.getElementById("menu").style.visibility = "hidden";
+			};
+
+		</script>
+
+	</body>
+</html>

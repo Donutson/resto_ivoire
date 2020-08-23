@@ -1,0 +1,54 @@
+body
+{
+	background-color: #D3D3D3;
+}
+
+#type_user
+{
+	visibility: hidden;
+}
+
+.form-line
+{
+	margin: 8px;
+}
+
+section
+{
+	width: 400px;
+	margin: auto;
+	margin-top: 200px;
+	border-radius: 12px;
+	background-color: orange;
+	padding: 50px;
+	box-shadow: 2px 3px 8px #595959;
+}
+
+div
+{
+	position: relative;
+	width: 300px;
+}
+
+#submit
+{
+	text-align: center;
+	margin: 6px;
+	width: 100%;
+	
+}
+
+#submit input
+{
+	padding: 3px;
+	width: 80px;
+	border-radius: 4px;
+	border-color: #FF7F00;
+	background-color: #FF7F00;
+}
+
+.right
+{
+	position: absolute;
+	right: 1px;
+}

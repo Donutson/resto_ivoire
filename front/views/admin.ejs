@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href='<%=links.css+"/admin/admin.css"%>'>
+		<link rel="stylesheet" type="text/css" href='<%=links.css+"/admin/general.css"%>'>
+		<link rel="stylesheet" type="text/css" href='<%=links.css+"/admin/caisse.css"%>'>
+		<title>Admin</title>
+		
+	</head>
+	<body>
+		<header>
+			<figure>
+				<img onmouseover="showMenu()" src='<%=links.images+params.photo%>' alt="..." />
+			</figure>
+
+			<nav id="menut" onmouseover="showMenu()" onmouseout="hideMenu()">
+				<ul>
+					<a href="/compte/infos"><li>Mes infos</li> </a>
+					<a href="/deconnexion"><li>Deconneion</li> </a>
+				</ul>
+			</nav>
+		</header>
+
+		<!-- MENU -->
+		<section id="menu">
+			<a href="/admin">
+				<div id="general">
+					<h3 <%if(params.visible.general){%> id="menu-active" <%}%>> General</h3>
+				</div>
+			</a>
+
+			<a href="/admin/caisse">
+				<div id="caisse">
+					<h3 <%if(params.visible.caisse){%> id="menu-active" <%}%>> Caissières / Caissiers </h3>
+				</div>
+			</a>
+				
+			<a href="/deconnexion">
+				<div id="deconnexion">
+					<h3> Déconnexion</h3>
+				</div>
+			</a>
+				
+		</section>
+
+		<section id="actions">
+			<%if(params.visible.general){%>
+				<div><%-include("partials/admin/general") %></div>
+			<%}%>
+
+			<%if(params.visible.caisse){%>
+				<div><%-include("partials/admin/caisse") %></div>
+			<%}%>
+		</section>
+
+		<script type="text/javascript">
+
+			const setImage = ()=>{
+				document.getElementById("champ-image").click();
+			};
+
+			const showMenu = ()=>{
+				document.getElementById("menut").style.visibility = "visible";
+			};
+
+			const hideMenu = ()=>{
+				document.getElementById("menut").style.visibility = "hidden";
+			};
+
+		</script>
+	</body>
+</html>
