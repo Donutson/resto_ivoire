@@ -82,3 +82,4 @@ Elle est composée de trois parties que sont:
 Les commandes arrivent en temps réel chez celui-ci
 <img src="présentation/caisse_commande.jpg">
 Il a égalemment la possibilité de désactiver le temps réel et ce pour chaque partie indépendemment, celui se fait à partir des boutons au dessus de chaque partie; le bouton est vert que le temps réel est activé et rouge dans le cas contraire
+<img src="présentation/caisse_disabledrtc.jpg">
